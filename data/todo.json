@@ -4,7 +4,7 @@
       "lastId": 1,
       "primaryKey": "id",
       "autoIncrement": true,
-      "createdAt": "2025-11-25T00:35:53.891Z"
+      "createdAt": "2025-11-25T02:42:46.285Z"
     },
     "columns": {
       "id": "number",
@@ -16,7 +16,7 @@
       {
         "title": "Finish the project",
         "completed": false,
-        "createdAt": "2025-11-25T00:35:53.896Z",
+        "createdAt": "2025-11-25T02:42:46.290Z",
         "id": 1
       }
     ]

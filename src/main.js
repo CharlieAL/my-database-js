@@ -1,44 +1,68 @@
-import fs from "fs";
-import path from "path";
-import { db } from "./db.js";
+import { Database } from "./models/Database.js";
 
-// this is for testing purposes only
-const pathData = path.join(process.cwd(), "data");
+/**
+ * Ejemplo de uso de la base de datos
+ */
+// Crear instancia de base de datos
+console.log("🚀 Iniciando ejemplo de uso de la base de datos...");
+const db = new Database("myDatabase");
+console.log('📂 Base de datos "myDatabase" creada o cargada exitosamente');
 
-(() => {
-	// delete files inside data folder
-	try {
-		const files = fs.readdirSync(pathData);
-		for (const file of files) {
-			fs.unlinkSync(path.join(pathData, file));
-		}
-		console.log("All data deleted.");
-	} catch (err) {
-		console.error("Error while deleting data:", err);
+try {
+	// Crear tabla de usuarios
+	// eleiminar la tabla si ya existe
+	const $tableNames = db.getTableNames();
+	if ($tableNames.includes("users")) {
+		console.log('🗑 Eliminando tabla "users" existente...');
+		db.dropTable("users");
+		console.log('✅ Tabla "users" eliminada exitosamente');
 	}
-})();
+	console.log('🛠 Creando tabla "users"...');
+	db.createTable(
+		"users",
+		{
+			id: "number",
+			name: "string",
+			email: "string",
+			age: "number",
+			isActive: "boolean",
+		},
+		{
+			primaryKey: "id",
+			autoIncrement: true,
+			createdAt: true,
+			updatedAt: true,
+		},
+	);
 
-const database = new db("todo");
+	console.log('✅ Tabla "users" creada exitosamente');
 
-database.createTable(
-	"tasks",
-	{
-		id: "number",
-		title: "string",
-		completed: "boolean",
-	},
-	{
-		primaryKey: "id",
-		autoIncrement: true,
-		createdAt: true,
-	},
-);
+	console.log('📝 Insertando usuarios en la tabla "users"...');
+	// Insertar algunos usuarios
+	db.insert("users", {
+		name: "Juan Pérez",
+		email: "juan@example.com",
+		age: 30,
+		isActive: true,
+	});
 
-const record = {
-	title: "Finish the project",
-	completed: false,
-};
+	db.insert("users", {
+		name: "María García",
+		email: "maria@example.com",
+		age: 25,
+		isActive: true,
+	});
 
-database.insert("tasks", record);
+	console.log("✅ Usuarios insertados exitosamente");
 
-console.log("Table 'tasks' created successfully.");
+	// Obtener todos los usuarios
+	const users = db.getAll("users");
+	console.log("📊 Usuarios en la base de datos:");
+	console.log(JSON.stringify(users, null, 2));
+
+	// Mostrar nombres de tablas
+	const tableNames = db.getTableNames();
+	console.log("📋 Tablas disponibles:", tableNames);
+} catch (error) {
+	console.error("❌ Error:", error.message);
+}

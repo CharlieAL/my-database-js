@@ -96,6 +96,19 @@ export class Table {
 		this.data.push(newRecord);
 		return newRecord;
 	}
+
+	/**
+	 * Obtiene todos los datos de la tabla
+	 * @returns {TableSchema} Esquema completo de la tabla
+	 */
+	getAll() {
+		return {
+			metadata: this.metadata,
+			columns: this.columns,
+			data: this.data,
+		};
+	}
+
 	/**
 	 * Obtiene el esquema de columnas de la tabla
 	 * @returns {Object.<string, string>} Columnas de la tabla
