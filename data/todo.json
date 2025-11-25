@@ -1,0 +1,24 @@
+{
+  "tasks": {
+    "metadata": {
+      "lastId": 1,
+      "primaryKey": "id",
+      "autoIncrement": true,
+      "createdAt": "2025-11-25T00:35:53.891Z"
+    },
+    "columns": {
+      "id": "number",
+      "title": "string",
+      "completed": "boolean",
+      "createdAt": "date"
+    },
+    "data": [
+      {
+        "title": "Finish the project",
+        "completed": false,
+        "createdAt": "2025-11-25T00:35:53.896Z",
+        "id": 1
+      }
+    ]
+  }
+}
